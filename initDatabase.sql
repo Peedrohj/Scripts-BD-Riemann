@@ -1,4 +1,4 @@
-
+-- drop database Riemann
 -- Create project database
 CREATE DATABASE IF NOT EXISTS Riemann;
 USE Riemann;
@@ -7,14 +7,14 @@ USE Riemann;
 DROP TABLE IF EXISTS Aplicativo;
 DROP TABLE IF EXISTS Endereco;
 DROP TABLE IF EXISTS Telefone;
-DROP TABLE IF EXISTS Cartao_credito;
-DROP TABLE IF EXISTS Compra_fisica;
-DROP TABLE IF EXISTS Compra_online;
-DROP TABLE IF EXISTS Renda_media;
+DROP TABLE IF EXISTS Cartao_Credito;
+DROP TABLE IF EXISTS Compra_Fisica;
+DROP TABLE IF EXISTS Compra_Online;
+DROP TABLE IF EXISTS Renda_Media;
 DROP TABLE IF EXISTS Filiacao;
 DROP TABLE IF EXISTS Inidicacao;
 DROP TABLE IF EXISTS Faculdade;
-DROP TABLE IF EXISTS Loja_fisica;
+DROP TABLE IF EXISTS Loja_Fisica;
 
 -- Create tables
 CREATE TABLE Aplicativo (
