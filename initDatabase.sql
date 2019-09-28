@@ -15,22 +15,27 @@ DROP TABLE IF EXISTS Inidicacao;
 DROP TABLE IF EXISTS Faculdade;
 DROP TABLE IF EXISTS Loja_fisica
 
-
-
 -- Create tables
 CREATE TABLE Aplicativo (
-  nome VARCHAR(60) UNIQUE,
-  categoria VARCHAR(45) NULL,
-  faz_transacao INT NULL,
-  PRIMARY KEY (nome)
+	nome VARCHAR(60) UNIQUE,
+	categoria VARCHAR(45) NULL,
+	faz_transacao INT NULL,
+	PRIMARY KEY (nome)
 );
 
 create table Endereco(
-
+	id_endereco VARCHAR(60) NULL, 
+	numero INT(5) NULL,
+    logradouro VARCHAR(16) NULL,
+    cep VARCHAR(8) NULL,
+    cidade VARCHAR(95) NULL,
+    estado VARCHAR(90) NULL,
+    bairro VARCHAR(90) NULL,
+    PRIMARY KEY (id_endereco)
 );
 
 create table Telefone(
-
+	
 );
 
 create table Cartao_credito(
