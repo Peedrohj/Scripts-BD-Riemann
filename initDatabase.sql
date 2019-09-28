@@ -37,16 +37,17 @@ CREATE TABLE Pessoa(
 cpf INT(11) NOT NULL,
 nome VARCHAR(90) NULL,
 data_de_nascimento VARCHAR(10) NULL,
-CONSTRAINT pessoa_endereco_fk FOREIGN KEY (id_endereco) REFERENCES endereco (id_endereco),
+id_endereco VARCHAR(60) NULL, 
+CONSTRAINT pessoa_endereco_fk FOREIGN KEY (id_endereco) REFERENCES Endereco (id_endereco),
 genero VARCHAR(15) NULL,
 nome_mae VARCHAR(90) NULL,
 PRIMARY KEY (cpf)
 );
 
 create table Telefone(
-	numero
-	CONSTRAINT telefonr_fk FOREIGN KEY (cpf) REFERENCES pessoa (cpf),
-
+	numero VARCHAR(13) NULL,
+    cpf INT(11) NOT NULL, 
+	CONSTRAINT telefonr_fk FOREIGN KEY (cpf) REFERENCES Pessoa (cpf)
 );
 
 create table Cartao_credito(
