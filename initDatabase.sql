@@ -18,7 +18,7 @@ DROP TABLE IF EXISTS Loja_fisica;
 
 -- Create tables
 CREATE TABLE Aplicativo (
-	nome VARCHAR(60) UNIQUE,
+	nome VARCHAR(60) NOT NULL,
 	categoria VARCHAR(45) NULL,
 	faz_transacao INT NULL,
 	PRIMARY KEY (nome)
@@ -34,6 +34,7 @@ CREATE TABLE Endereco(
     bairro VARCHAR(90) NULL,
     PRIMARY KEY (id_endereco)
 );
+
 CREATE TABLE Pessoa(
 	cpf INT(11) NOT NULL,
 	nome VARCHAR(90) NULL,
@@ -78,16 +79,30 @@ CREATE TABLE Faculdade(
 );
 
 CREATE TABLE Compra_Fisica(
-id_transacao_fisica VARCHAR(60) NOT NULL,
-cpf INT(11) NOT NULL,
-cnpj VARCHAR(14) NOT NULL,
-id_cartao INT(16),
-CONSTRAINT fk_compra_fisica_cpf FOREIGN KEY(cpf) REFERENCES Pessoa(cpf),
-CONSTRAINT fk_compra_fisica_cnpj FOREIGN KEY(cnpj) REFERENCES Loja_Fisica(cnpj),
-CONSTRAINT fk_compra_fisica_id_cartao FOREIGN KEY(id_cartao) REFERENCES Cartao_Credito(id_cartao),
-parcelamento INT(5) NULL,
-tipo_de_pagamento VARCHAR(30) NULL,
-data_compra VARCHAR(10) NULL,
-valor FLOAT(60,2) NULL,
-PRIMARY KEY (id_transacao_fisica)
+	id_transacao_fisica VARCHAR(60) NOT NULL,
+	cpf INT(11) NOT NULL,
+	cnpj VARCHAR(14) NOT NULL,
+	id_cartao INT(16),
+	CONSTRAINT fk_compra_fisica_cpf FOREIGN KEY(cpf) REFERENCES Pessoa(cpf),
+	CONSTRAINT fk_compra_fisica_cnpj FOREIGN KEY(cnpj) REFERENCES Loja_Fisica(cnpj),
+	CONSTRAINT fk_compra_fisica_id_cartao FOREIGN KEY(id_cartao) REFERENCES Cartao_Credito(id_cartao),
+	parcelamento INT(5) NULL,
+	tipo_de_pagamento VARCHAR(30) NULL,
+	data_compra VARCHAR(10) NULL,
+	valor FLOAT(60,2) NULL,
+	PRIMARY KEY (id_transacao_fisica)
+);
+
+CREATE TABLE Estuda(
+	cnpj VARCHAR(14) NOT NULL,
+    cpf INT(11) NOT NULL, 
+    data_inicio VARCHAR(10) NULL,
+    bolsa BOOLEAN NULL,
+    valor_mensalidade FLOAT(60,2) NULL,
+    matricula VARCHAR(60) NULL,
+    PRIMARY KEY(cpf, cnpj),
+	INDEX fk_compra_fisica_cpf_idx(cpf),
+	INDEX fk_compra_fisica_cnpj_idx(cnpj),
+	CONSTRAINT fk_compra_fisica_cpf FOREIGN KEY(cpf) REFERENCES Pessoa(cpf),
+	CONSTRAINT fk_compra_fisica_cnpj FOREIGN KEY(cnpj) REFERENCES Loja_Fisica(cnpj)
 );
