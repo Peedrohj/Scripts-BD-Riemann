@@ -107,3 +107,27 @@ valor FLOAT(60,2) NULL,
 assinatura BOOLEAN NULL,
 PRIMARY KEY (id_transacao_online)
 );
+
+CREATE TABLE Renda_Media(
+	cpf INT(11) NOT NULL,
+	CONSTRAINT fk_renda_media_cpf FOREIGN KEY(cpf) REFERENCES Pessoa(cpf),
+	categoria VARCHAR(60) NULL,
+	data_recebimento VARCHAR(10) NULL,
+	PRIMARY KEY(cpf)
+);
+
+CREATE TABLE Filiacao(
+	cpf_responsavel INT(11) NOT NULL,
+	cpf_dependente INT(11) NOT NULL,
+	CONSTRAINT fk_filiacao_cpf_dependente FOREIGN KEY(cpf_dependente) REFERENCES Pessoa(cpf),
+	CONSTRAINT fk_filiacao_cpf_responsavel FOREIGN KEY(cpf_responsavel) REFERENCES Pessoa(cpf),
+	PRIMARY KEY(cpf_responsavel,cpf_dependente)
+);
+
+CREATE TABLE Indicacao(
+	cpf_responsavel INT(11) NOT NULL,
+	cpf_dependente INT(11) NOT NULL,
+	CONSTRAINT fk_indicacao_cpf_dependente FOREIGN KEY(cpf_dependente) REFERENCES Pessoa(cpf),
+	CONSTRAINT fk_indicacao_cpf_responsavel FOREIGN KEY(cpf_responsavel) REFERENCES Pessoa(cpf),
+	PRIMARY KEY(cpf_responsavel,cpf_dependente)
+);
