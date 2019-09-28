@@ -23,8 +23,8 @@ CREATE TABLE Aplicativo (
 	PRIMARY KEY (nome)
 );
 
-create table Endereco(
-	id_endereco VARCHAR(60) NULL, 
+CREATE TABLE Endereco(
+	id_endereco VARCHAR(60) NOT NULL, 
 	numero INT(5) NULL,
     logradouro VARCHAR(16) NULL,
     cep VARCHAR(8) NULL,
@@ -33,9 +33,20 @@ create table Endereco(
     bairro VARCHAR(90) NULL,
     PRIMARY KEY (id_endereco)
 );
+CREATE TABLE Pessoa(
+cpf INT(11) NOT NULL,
+nome VARCHAR(90) NULL,
+data_de_nascimento VARCHAR(10) NULL,
+CONSTRAINT pessoa_endereco_fk FOREIGN KEY (id_endereco) REFERENCES endereco (id_endereco),
+genero VARCHAR(15) NULL,
+nome_mae VARCHAR(90) NULL,
+PRIMARY KEY (cpf)
+);
 
 create table Telefone(
-	
+	numero
+	CONSTRAINT telefonr_fk FOREIGN KEY (cpf) REFERENCES pessoa (cpf),
+
 );
 
 create table Cartao_credito(
