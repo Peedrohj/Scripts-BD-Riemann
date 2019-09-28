@@ -18,7 +18,7 @@ DROP TABLE IF EXISTS Loja_fisica;
 
 -- Create tables
 CREATE TABLE Aplicativo (
-	nome VARCHAR(60) UNIQUE,
+	nome VARCHAR(60) NOT NULL,
 	categoria VARCHAR(45) NULL,
 	faz_transacao INT NULL,
 	PRIMARY KEY (nome)
@@ -90,4 +90,20 @@ tipo_de_pagamento VARCHAR(30) NULL,
 data_compra VARCHAR(10) NULL,
 valor FLOAT(60,2) NULL,
 PRIMARY KEY (id_transacao_fisica)
+);
+
+CREATE TABLE Compra_Online(
+id_transacao_online VARCHAR(60) NOT NULL,
+cpf INT(11) NOT NULL,
+id_cartao INT(16),
+nome_aplicativo VARCHAR(60) NOT NULL,
+CONSTRAINT fk_compra_online_cpf FOREIGN KEY(cpf) REFERENCES Pessoa(cpf),
+CONSTRAINT fk_compra_online_nome_aplicativo FOREIGN KEY(nome_aplicativo) REFERENCES Aplicativo(nome),
+CONSTRAINT fk_compra_online_id_cartao FOREIGN KEY(id_cartao) REFERENCES Cartao_Credito(id_cartao),
+parcelamento INT(5) NULL,
+tipo_de_pagamento VARCHAR(30) NULL,
+data_compra VARCHAR(10) NULL,
+valor FLOAT(60,2) NULL,
+assinatura BOOLEAN NULL,
+PRIMARY KEY (id_transacao_online)
 );
