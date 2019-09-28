@@ -1,3 +1,4 @@
+
 -- Create project database
 CREATE DATABASE Riemann;
 USE Riemann;
@@ -44,13 +45,13 @@ CREATE TABLE Pessoa(
 	PRIMARY KEY (cpf)
 );
 
-create table Telefone(
+CREATE TABLE Telefone(
 	numero VARCHAR(13) NULL,
     cpf INT(11) NOT NULL, 
 	CONSTRAINT fk_pessoa_faculdade FOREIGN KEY (cpf) REFERENCES Pessoa (cpf)
 );
 
-create table Cartao_credito(
+CREATE TABLE Cartao_Credito(
 	id_cartao INT(16),
 	nivel_cartao VARCHAR(30) NOT NULL,
 	bandeira VARCHAR(30) NOT NULL,
@@ -60,15 +61,33 @@ create table Cartao_credito(
 	PRIMARY KEY (id_cartao)
 ); 
 
-create table Loja_fisica(
-	cnpj VARCHAR(14) NULL,
+CREATE TABLE Loja_Fisica(
+	cnpj VARCHAR(14) NOT NULL,
     categoria VARCHAR(30) NULL,
-    CONSTRAINT fk_endereco_loja_fisica FOREIGN KEY(id_endereco) REFERENCES Endereco(id_endereco) 
+    id_endereco VARCHAR(60) NULL,
+    CONSTRAINT fk_endereco_loja_fisica FOREIGN KEY(id_endereco) REFERENCES Endereco(id_endereco),
+	PRIMARY KEY (cnpj)
 );
 
-create table Faculdade(
-	cnpj VARCHAR(14) NULL,
+CREATE TABLE Faculdade(
+	cnpj VARCHAR(14) NOT NULL,
     categoria VARCHAR(30) NULL,
-    CONSTRAINT fk_endereco_faculdade FOREIGN KEY(id_endereco) REFERENCES Endereco(id_endereco) 
+    id_endereco VARCHAR(60) NULL,
+    CONSTRAINT fk_endereco_faculdade FOREIGN KEY(id_endereco) REFERENCES Endereco(id_endereco),
+	PRIMARY KEY(cnpj)
 );
 
+CREATE TABLE Compra_Fisica(
+id_transacao_fisica VARCHAR(60) NOT NULL,
+cpf INT(11) NOT NULL,
+cnpj VARCHAR(14) NOT NULL,
+id_cartao INT(16),
+CONSTRAINT fk_compra_fisica_cpf FOREIGN KEY(cpf) REFERENCES Pessoa(cpf),
+CONSTRAINT fk_compra_fisica_cnpj FOREIGN KEY(cnpj) REFERENCES Loja_Fisica(cnpj),
+CONSTRAINT fk_compra_fisica_id_cartao FOREIGN KEY(id_cartao) REFERENCES Cartao_Credito(id_cartao),
+parcelamento INT(5) NULL,
+tipo_de_pagamento VARCHAR(30) NULL,
+data_compra VARCHAR(10) NULL,
+valor FLOAT(60,2) NULL,
+PRIMARY KEY (id_transacao_fisica)
+);
