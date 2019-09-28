@@ -34,5 +34,11 @@ create table Telefone(
 );
 
 create table Cartao_credito(
-
+	id_cartao INT(16),
+	nivel_cartao VARCHAR(30) NOT NULL,
+	bandeira VARCHAR(30) NOT NULL,
+    ultimos_quatros_digitos INT(4) NOT NULL,
+    validade VARCHAR(10) NOT NULL,
+    cpf VARCHAR(11) NOT NULL,
+	PRIMARY KEY (id_cartao)
 ); 
