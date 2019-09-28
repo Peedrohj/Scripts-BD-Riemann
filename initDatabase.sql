@@ -13,7 +13,7 @@ DROP TABLE IF EXISTS Renda_media;
 DROP TABLE IF EXISTS Filiacao;
 DROP TABLE IF EXISTS Inidicacao;
 DROP TABLE IF EXISTS Faculdade;
-DROP TABLE IF EXISTS Loja_fisica
+DROP TABLE IF EXISTS Loja_fisica;
 
 -- Create tables
 CREATE TABLE Aplicativo (
@@ -23,7 +23,7 @@ CREATE TABLE Aplicativo (
 	PRIMARY KEY (nome)
 );
 
-create table Endereco(
+CREATE TABLE Endereco(
 	id_endereco VARCHAR(60) NULL, 
 	numero INT(5) NULL,
     logradouro VARCHAR(16) NULL,
@@ -41,3 +41,15 @@ create table Telefone(
 create table Cartao_credito(
 
 ); 
+
+create table Loja_fisica(
+	cnpj VARCHAR(14) NULL,
+    categoria VARCHAR(30) NULL,
+    CONSTRAINT fk_endereco_loja_fisica FOREIGN KEY(id_endereco) REFERENCES Endereco(id_endereco) 
+);
+
+create table Faculdade(
+	cnpj VARCHAR(14) NULL,
+    categoria VARCHAR(30) NULL,
+    CONSTRAINT fk_endereco_faculdade FOREIGN KEY(id_endereco) REFERENCES Endereco(id_endereco) 
+);
