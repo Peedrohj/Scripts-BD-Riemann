@@ -146,3 +146,11 @@ CREATE TABLE Indicacao(
 	CONSTRAINT fk_indicacao_cpf_responsavel FOREIGN KEY(cpf_responsavel) REFERENCES Pessoa(cpf),
 	PRIMARY KEY(cpf_responsavel,cpf_dependente)
 );
+
+CREATE TABLE Usa(
+	cpf_usuario INT(11) NOT NULL,
+    nome_aplicativo VARCHAR(60) NOT NULL,
+	CONSTRAINT fk_usa_cpf_dependente FOREIGN KEY(cpf_usuario) REFERENCES Pessoa(cpf),
+	CONSTRAINT fk_usa_nome_aplicativo FOREIGN KEY(nome_aplicativo) REFERENCES Aplicativo(nome),
+	PRIMARY KEY(cpf_usuario,nome_aplicativo)
+);
