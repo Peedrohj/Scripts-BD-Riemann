@@ -1,6 +1,6 @@
 
 -- Create project database
-CREATE DATABASE Riemann;
+CREATE DATABASE IF NOT EXISTS Riemann;
 USE Riemann;
 
 -- Drop tables
@@ -103,6 +103,46 @@ CREATE TABLE Estuda(
     PRIMARY KEY(cpf, cnpj),
 	INDEX fk_compra_fisica_cpf_idx(cpf),
 	INDEX fk_compra_fisica_cnpj_idx(cnpj),
-	CONSTRAINT fk_compra_fisica_cpf FOREIGN KEY(cpf) REFERENCES Pessoa(cpf),
-	CONSTRAINT fk_compra_fisica_cnpj FOREIGN KEY(cnpj) REFERENCES Loja_Fisica(cnpj)
+	CONSTRAINT fk_estuda_cpf FOREIGN KEY(cpf) REFERENCES Pessoa(cpf),
+	CONSTRAINT fk_estuda_cnpj FOREIGN KEY(cnpj) REFERENCES Loja_Fisica(cnpj)
+);
+
+CREATE TABLE Compra_Online(
+	id_transacao_online VARCHAR(60) NOT NULL,
+	cpf INT(11) NOT NULL,
+	id_cartao INT(16),
+	nome_aplicativo VARCHAR(60) NOT NULL,
+	CONSTRAINT fk_compra_online_cpf FOREIGN KEY(cpf) REFERENCES Pessoa(cpf),
+	CONSTRAINT fk_compra_online_nome_aplicativo FOREIGN KEY(nome_aplicativo) REFERENCES Aplicativo(nome),
+	CONSTRAINT fk_compra_online_id_cartao FOREIGN KEY(id_cartao) REFERENCES Cartao_Credito(id_cartao),
+	parcelamento INT(5) NULL,
+	tipo_de_pagamento VARCHAR(30) NULL,
+	data_compra VARCHAR(10) NULL,
+	valor FLOAT(60,2) NULL,
+	assinatura BOOLEAN NULL,
+	PRIMARY KEY (id_transacao_online)
+);
+
+CREATE TABLE Renda_Media(
+	cpf INT(11) NOT NULL,
+	CONSTRAINT fk_renda_media_cpf FOREIGN KEY(cpf) REFERENCES Pessoa(cpf),
+	categoria VARCHAR(60) NULL,
+	data_recebimento VARCHAR(10) NULL,
+	PRIMARY KEY(cpf)
+);
+
+CREATE TABLE Filiacao(
+	cpf_responsavel INT(11) NOT NULL,
+	cpf_dependente INT(11) NOT NULL,
+	CONSTRAINT fk_filiacao_cpf_dependente FOREIGN KEY(cpf_dependente) REFERENCES Pessoa(cpf),
+	CONSTRAINT fk_filiacao_cpf_responsavel FOREIGN KEY(cpf_responsavel) REFERENCES Pessoa(cpf),
+	PRIMARY KEY(cpf_responsavel,cpf_dependente)
+);
+
+CREATE TABLE Indicacao(
+	cpf_responsavel INT(11) NOT NULL,
+	cpf_dependente INT(11) NOT NULL,
+	CONSTRAINT fk_indicacao_cpf_dependente FOREIGN KEY(cpf_dependente) REFERENCES Pessoa(cpf),
+	CONSTRAINT fk_indicacao_cpf_responsavel FOREIGN KEY(cpf_responsavel) REFERENCES Pessoa(cpf),
+	PRIMARY KEY(cpf_responsavel,cpf_dependente)
 );
