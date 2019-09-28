@@ -24,7 +24,7 @@ CREATE TABLE Aplicativo (
 );
 
 CREATE TABLE Endereco(
-	id_endereco VARCHAR(60) NULL, 
+	id_endereco VARCHAR(60) NOT NULL, 
 	numero INT(5) NULL,
     logradouro VARCHAR(16) NULL,
     cep VARCHAR(8) NULL,
@@ -33,13 +33,31 @@ CREATE TABLE Endereco(
     bairro VARCHAR(90) NULL,
     PRIMARY KEY (id_endereco)
 );
+CREATE TABLE Pessoa(
+	cpf INT(11) NOT NULL,
+	nome VARCHAR(90) NULL,
+	data_de_nascimento VARCHAR(10) NULL,
+	id_endereco VARCHAR(60) NULL, 
+	CONSTRAINT pessoa_endereco_fk FOREIGN KEY (id_endereco) REFERENCES Endereco (id_endereco),
+	genero VARCHAR(15) NULL,
+	nome_mae VARCHAR(90) NULL,
+	PRIMARY KEY (cpf)
+);
 
 create table Telefone(
-	
+	numero VARCHAR(13) NULL,
+    cpf INT(11) NOT NULL, 
+	CONSTRAINT telefonr_fk FOREIGN KEY (cpf) REFERENCES Pessoa (cpf)
 );
 
 create table Cartao_credito(
-
+	id_cartao INT(16),
+	nivel_cartao VARCHAR(30) NOT NULL,
+	bandeira VARCHAR(30) NOT NULL,
+    ultimos_quatros_digitos INT(4) NOT NULL,
+    validade VARCHAR(10) NOT NULL,
+    cpf VARCHAR(11) NOT NULL,
+	PRIMARY KEY (id_cartao)
 ); 
 
 create table Loja_fisica(
@@ -53,3 +71,4 @@ create table Faculdade(
     categoria VARCHAR(30) NULL,
     CONSTRAINT fk_endereco_faculdade FOREIGN KEY(id_endereco) REFERENCES Endereco(id_endereco) 
 );
+
