@@ -100,6 +100,18 @@ VALUES
 INSERT INTO Compra_Fisica
     (id_transacao_fisica, cpf, cnpj, id_cartao, parcelamento, tipo_de_pagamento, data_compra, valor)
 VALUES("1", '43157231547', "92863080000127", "5258134325674997", NULL, "Credito a vista", "01/10/2019", 4099.52);
+INSERT INTO Compra_Fisica
+    (id_transacao_fisica, cpf, cnpj, id_cartao, parcelamento, tipo_de_pagamento, data_compra, valor)
+VALUES("2", '43157231547', "92863080000127", "5258134325674997", 2, "Credito a vista", "01/10/2019", 30.12);
+INSERT INTO Compra_Fisica
+    (id_transacao_fisica, cpf, cnpj, id_cartao, parcelamento, tipo_de_pagamento, data_compra, valor)
+VALUES("3", '43157231547', "92863080000127", "5258134325674997", NULL, "Credito a vista", "01/10/2019", 0.12);
+INSERT INTO Compra_Fisica
+    (id_transacao_fisica, cpf, cnpj, id_cartao, parcelamento, tipo_de_pagamento, data_compra, valor)
+VALUES("4", '43157231547', "92863080000127", "5258134325674997", 4, "Credito a vista", "01/10/2019", 1.12);
+INSERT INTO Compra_Fisica
+    (id_transacao_fisica, cpf, cnpj, id_cartao, parcelamento, tipo_de_pagamento, data_compra, valor)
+VALUES("5", '43157231547', "92863080000127", "5258134325674997", NULL, "Credito a vista", "01/10/2019", 1.42);
 
 -- Populate Estuda
 INSERT INTO Estuda
