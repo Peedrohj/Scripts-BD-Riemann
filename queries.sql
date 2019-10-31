@@ -46,8 +46,30 @@ ALTER TABLE Pessoa MODIFY nome varchar(120);
 -- Remove email collumn
 ALTER TABLE Pessoa DROP email;
 
--- 
+-- Shows the value per parcel of each parceled transaction
 SELECT valor/parcelamento, id_transacao_fisica, cpf, cnpj, id_cartao, parcelamento, tipo_de_pagamento, data_compra, valor
 FROM Riemann.Compra_Fisica
 WHERE parcelamento IS NOT NULL;
+
+-- Shows the number of People of each gender
+SELECT genero, COUNT(genero)
+FROM Riemann.Pessoa
+GROUP BY genero;
+
+-- Shows all distincts transactions for a person in a store
+SELECT DISTINCT cpf, cnpj
+FROM Riemann.Compra_Fisica;
+
+-- Shows the number of People of each gender having more than 1 person
+SELECT genero, COUNT(genero)
+FROM Riemann.Pessoa
+GROUP BY genero
+HAVING COUNT(genero) > 1;
+
+-- Shows people and address
+SELECT
+    *
+FROM
+    Riemann.Pessoa AS P
+INNER JOIN  Riemann.Endereco AS E ON P.id_endereco = E.id_endereco
 

@@ -32,6 +32,10 @@ INSERT INTO Pessoa
     (cpf, nome, data_de_nascimento, id_endereco, genero, nome_mae)
 VALUES
     ("12871289732", "Laura Mentirosa", "11/05/1940", '2', 'feminino', 'Paula Mentirosa');
+INSERT INTO Pessoa
+    (cpf, nome, data_de_nascimento, id_endereco, genero, nome_mae)
+VALUES
+    ("12311889634", "Lilo Tarsen", "19/07/1999", '6', 'nao binario', 'Claudia Tarsen');
 
 -- Populate Aplicativo
 INSERT INTO Aplicativo
@@ -108,7 +112,7 @@ INSERT INTO Compra_Fisica
 VALUES("3", '43157231547', "92863080000127", "5258134325674997", NULL, "Credito a vista", "01/10/2019", 0.12);
 INSERT INTO Compra_Fisica
     (id_transacao_fisica, cpf, cnpj, id_cartao, parcelamento, tipo_de_pagamento, data_compra, valor)
-VALUES("4", '43157231547', "92863080000127", "5258134325674997", 4, "Credito a vista", "01/10/2019", 1.12);
+VALUES("4", '10097142441', "92863080000127", "5258134325674997", 4, "Credito a vista", "01/10/2019", 1.12);
 INSERT INTO Compra_Fisica
     (id_transacao_fisica, cpf, cnpj, id_cartao, parcelamento, tipo_de_pagamento, data_compra, valor)
 VALUES("5", '43157231547', "92863080000127", "5258134325674997", NULL, "Credito a vista", "01/10/2019", 1.42);
