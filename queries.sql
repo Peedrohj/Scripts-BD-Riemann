@@ -24,7 +24,7 @@ FROM
     Riemann.Pessoa AS P
 WHERE
             P.id_endereco = P.id_endereco
-    )
+    );
 
 -- Finds stores without address
 SELECT cnpj, categoria, id_endereco
@@ -71,5 +71,40 @@ SELECT
     *
 FROM
     Riemann.Pessoa AS P
-INNER JOIN  Riemann.Endereco AS E ON P.id_endereco = E.id_endereco
+INNER JOIN  Riemann.Endereco AS E ON P.id_endereco = E.id_endereco;
+
+CREATE VIEW CPFs AS
+SELECT cpf, nome
+FROM Riemann.Pessoa;
+
+SELECT nome 
+FROM CPFs
+WHERE nome LIKE "M%";
+
+DELIMITER $$
+ 
+CREATE PROCEDURE GetAllLojas()
+BEGIN
+    SELECT cnpj, categoria  FROM Riemann.Loja_Fisica;
+END $$
+ 
+DELIMITER ;
+
+CALL GetAllLojas()
+
+
+
+
+
+
+DELIMITER $$  
+CREATE TRIGGER avoid_empty  
+    BEFORE INSERT ON Riemann.Compra_Fisica  
+        FOR EACH ROW  
+        BEGIN  
+            IF NEW.parcelamento = ''  
+                THEN SET NEW.parcelamento = NULL;  
+            END IF;  
+        END;$$  
+DELIMITER ; 
 
