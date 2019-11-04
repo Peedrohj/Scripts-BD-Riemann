@@ -102,9 +102,31 @@ CREATE TRIGGER avoid_empty
     BEFORE INSERT ON Riemann.Compra_Fisica  
         FOR EACH ROW  
         BEGIN  
-            IF NEW.parcelamento = ''  
+            IF NEW.parcelamento LIKE '[0-9]+'  
                 THEN SET NEW.parcelamento = NULL;  
             END IF;  
         END;$$  
 DELIMITER ; 
 
+DELIMITER $$
+CREATE FUNCTION FaixaEtaria(
+    year DECIMAL(10,2)
+) 
+RETURNS VARCHAR(20)
+DETERMINISTIC
+BEGIN
+    DECLARE faixaEtaria VARCHAR(20);
+	IF year <= 1964 THEN
+        SET faixaEtaria = 'IDOSO';
+    ELSEIF (year > 1964 AND 
+            year <= 1994) THEN
+        SET faixaEtaria = 'ADULTO';
+    ELSEIF (year > 1994 AND 
+            year <= 2004) THEN
+        SET faixaEtaria = 'JOVEM';
+    ELSEIF year > 2004 THEN
+        SET faixaEtaria = 'CRIANCA';
+    END IF;
+    RETURN (faixaEtaria);
+END$$
+DELIMITER ;
