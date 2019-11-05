@@ -124,11 +124,6 @@ DELIMITER ;
 
 CALL GetAllLojas()
 
-
-
-
-
-
 DELIMITER $$  
 CREATE TRIGGER avoid_empty  
     BEFORE INSERT ON Riemann.Compra_Fisica  
