@@ -157,7 +157,7 @@ BEGIN
     RETURN (flag);
 END$$
 DELIMITER ;
-DROP FUNCTION IF EXISTS FlagGenero;
+
 SELECT
     cpf,
     FlagGenero(genero)
