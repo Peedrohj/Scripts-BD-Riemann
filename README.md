@@ -17,7 +17,7 @@ Scripts usados para a cadeira de Banco de dados, com base no que está sendo des
   A partir da definição do minimundo e das entidades e sua relação, a equipe começou a desenvolver o modelo relacional e após a normalização foi desenvolvido o modelo de entidade de relacionamento. Este pode ser encontrado abaixo:
   ![Modelo de Entidade Relacional](modeloRelacionalNormal.png)
 ## Desenvolvedores:
-* [Otacilio Maia](https://github.com/OtacilioN)
 * [Maria do Carmo](https://github.com/mcaac)
+* [Otacilio Maia](https://github.com/OtacilioN)
 * [Pedro Henrique](https://github.com/Peedrohj)
 
