@@ -96,7 +96,7 @@ LEFT JOIN Riemann.Compra_Fisica as C ON P.cpf = C.cpf
 UNION ALL
 SELECT * FROM Riemann.Pessoa as P
 RIGHT JOIN Riemann.Compra_Fisica as C ON P.cpf = C.cpf
-WHERE P.cpf IS NULL
+WHERE P.cpf IS NULL;
 
 -- Filters the transaction with the lowest price in query
 SELECT valor FROM Riemann.Compra_Fisica WHERE valor > ANY (SELECT valor FROM Riemann.Compra_Fisica);
@@ -122,38 +122,44 @@ END $$
  
 DELIMITER ;
 
-CALL GetAllLojas()
+CALL GetAllLojas();
 
 DELIMITER $$  
 CREATE TRIGGER avoid_empty  
-    BEFORE INSERT ON Riemann.Compra_Fisica  
-        FOR EACH ROW  
-        BEGIN  
-            IF NEW.parcelamento LIKE '[0-9]+'  
-                THEN SET NEW.parcelamento = NULL;  
+    BEFORE INSERT ON Riemann.Compra_Fisica
+        FOR EACH ROW
+        BEGIN
+            IF NEW.parcelamento IS NULL THEN
+                SET NEW.parcelamento = 0;
             END IF;  
-        END;$$  
-DELIMITER ; 
+        END;$$ 
+DELIMITER ;
+
+INSERT INTO Compra_Fisica
+    (id_transacao_fisica, cpf, cnpj, id_cartao, parcelamento, tipo_de_pagamento, data_compra, valor)
+VALUES("6", "12311889634", "92863080000127", "5258134325674997", NULL, "Credito a vista", "05/11/2019", 11.69);
 
 DELIMITER $$
-CREATE FUNCTION FaixaEtaria(
-    year DECIMAL(10,2)
-) 
+CREATE FUNCTION FlagGenero(
+    genero VARCHAR(15)
+)
 RETURNS VARCHAR(20)
 DETERMINISTIC
 BEGIN
-    DECLARE faixaEtaria VARCHAR(20);
-	IF year <= 1964 THEN
-        SET faixaEtaria = 'IDOSO';
-    ELSEIF (year > 1964 AND 
-            year <= 1994) THEN
-        SET faixaEtaria = 'ADULTO';
-    ELSEIF (year > 1994 AND 
-            year <= 2004) THEN
-        SET faixaEtaria = 'JOVEM';
-    ELSEIF year > 2004 THEN
-        SET faixaEtaria = 'CRIANCA';
+    DECLARE flag VARCHAR(2);
+	IF genero LIKE 'M%' THEN
+        SET flag = 'M';
+    ELSEIF genero LIKE 'F%' THEN
+        SET flag = 'F';
+	ELSE
+		SET flag ='N';
     END IF;
-    RETURN (faixaEtaria);
+    RETURN (flag);
 END$$
 DELIMITER ;
+DROP FUNCTION IF EXISTS FlagGenero;
+SELECT
+    cpf,
+    FlagGenero(genero)
+FROM
+    Riemann.Pessoa;
