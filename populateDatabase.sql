@@ -1,4 +1,4 @@
-
+USE Riemann;
 -- Populate Endereco
 INSERT INTO Endereco
     (id_endereco, numero, logradouro, cep, cidade, estado, bairro)

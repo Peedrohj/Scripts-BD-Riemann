@@ -102,6 +102,7 @@ WHERE P.cpf IS NULL;
 SELECT valor FROM Riemann.Compra_Fisica WHERE valor > ANY (SELECT valor FROM Riemann.Compra_Fisica);
 
 -- Select everyone's with transactions that costs more than 1 R$
+-- Consulta aninhada 
 SELECT nome FROM Riemann.Pessoa AS P 
 WHERE EXISTS (SELECT valor FROM Riemann.Compra_Fisica as C WHERE c.valor > 1 AND P.cpf = C.cpf );
 
