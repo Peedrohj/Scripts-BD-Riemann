@@ -105,14 +105,17 @@ SELECT valor FROM Riemann.Compra_Fisica WHERE valor > ANY (SELECT valor FROM Rie
 SELECT nome FROM Riemann.Pessoa AS P 
 WHERE EXISTS (SELECT valor FROM Riemann.Compra_Fisica as C WHERE c.valor > 1 AND P.cpf = C.cpf );
 
+-- creates a view CPFs with the cpf and name.
 CREATE VIEW CPFs AS
 SELECT cpf, nome
 FROM Riemann.Pessoa;
 
+-- select cpf from view CPFs where the name of the person starts with M
 SELECT nome 
 FROM CPFs
 WHERE nome LIKE "M%";
 
+-- Procedure  that gets the cnpj and name from all lojas fisicas
 DELIMITER $$
  
 CREATE PROCEDURE GetAllLojas()
@@ -122,8 +125,11 @@ END $$
  
 DELIMITER ;
 
+
+-- calls the procedure get all loja
 CALL GetAllLojas();
 
+-- trigger thats if the parcelamento in compra fifica is null it changes to  int 0
 DELIMITER $$  
 CREATE TRIGGER avoid_empty  
     BEFORE INSERT ON Riemann.Compra_Fisica
@@ -138,6 +144,8 @@ DELIMITER ;
 INSERT INTO Compra_Fisica
     (id_transacao_fisica, cpf, cnpj, id_cartao, parcelamento, tipo_de_pagamento, data_compra, valor)
 VALUES("6", "12311889634", "92863080000127", "5258134325674997", NULL, "Credito a vista", "05/11/2019", 11.69);
+
+-- Function that creates a flag based on the gender of the person
 
 DELIMITER $$
 CREATE FUNCTION FlagGenero(
